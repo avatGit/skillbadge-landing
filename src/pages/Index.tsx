@@ -173,7 +173,7 @@ const Hero = () => (
           className="mt-8 flex flex-col sm:flex-row gap-4"
         >
           <Button variant="hero" size="xl">
-            <a href="#how-it-work" className="text-white">
+            <a href="#impact" className="text-white">
               Découvrir comment ça marche
             </a>
           </Button>
@@ -187,7 +187,7 @@ const Hero = () => (
         >
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            85% autodidactes
+            +15 000 autodidactes
           </span>
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-success" />6 domaines
@@ -234,9 +234,9 @@ const Hero = () => (
                     SkillBadge NFT
                   </span>
                 </div>
-                <span className="text-xs px-2 py-1 rounded-full bg-success/10 text-success font-semibold">
+                {/* <span className="text-xs px-2 py-1 rounded-full bg-success/10 text-success font-semibold">
                   VÉRIFIÉ
-                </span>
+                </span> */}
               </div>
 
               <div className="flex-1 flex flex-col items-center justify-center text-center">
@@ -273,72 +273,101 @@ const Hero = () => (
     </div>
   </section>
 );
-
 const ProblemSection = () => {
-  const items = [
+  const dataPoints = [
     {
-      icon: GraduationCap,
-      color: "text-primary bg-primary/10",
-      title: "Compétences non reconnues",
-      desc: "85% des jeunes apprennent en autodidacte mais ne peuvent pas le prouver aux recruteurs.",
+      icon: Users,
+      highlight: "15 000+",
+      text: "Jeunes Burkinabè se forment au numérique chaque année via des canaux informels.",
+      hoverColor: "hover:border-red-300",
     },
     {
       icon: Lock,
-      color: "text-accent bg-accent/10",
-      title: "Certifications inexistantes",
-      desc: " 75% n'ont jamais obtenu d'attestation formelle de leurs compétences techniques.",
+      highlight: "< 5%",
+      text: "Obtiennent des certifications reconnues par les employeurs du secteur.",
+      hoverColor: "hover:border-red-300",
     },
     {
       icon: Briefcase,
-      color: "text-danger bg-danger/10",
-      title: "Portes fermées",
-      desc: "57% ont été refusés à des emplois faute de diplôme ou certification reconnue.",
+      highlight: "70%",
+      text: "Des employeurs IT burkinabè peinent à évaluer les candidats autodidactes (enquête 2023).",
+      hoverColor: "hover:border-red-300",
+    },
+    {
+      icon: GraduationCap,
+      highlight: "8 000",
+      text: "Développeurs formés à Ouagadougou (2020–2023) sans certification standardisée.",
+      hoverColor: "hover:border-red-300",
+    },
+    {
+      icon: Globe,
+      highlight: "+40%",
+      text: "D'employabilité augmentée grâce à la blockchain en Afrique de l'Est.",
+      hoverColor: "hover:border-green-300",
     },
   ];
+
   return (
     <section id="probleme" className="py-20 bg-surface-soft">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* En-tête */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeUp}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
             Le défi de l'emploi numérique au Burkina Faso
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg">
+          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
             Des milliers de talents invisibles. Un écart majeur entre
             compétences réelles et reconnaissance formelle.
           </p>
         </motion.div>
 
+        {/* Liste minimaliste */}
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
           variants={stagger}
-          className="grid md:grid-cols-3 gap-6"
+          className="space-y-3"
         >
-          {items.map((it) => (
+          {dataPoints.map((item, idx) => (
             <motion.div
-              key={it.title}
+              key={idx}
               variants={fadeUp}
-              className="group bg-card rounded-2xl p-8 shadow-soft hover:shadow-elegant hover:-translate-y-1 transition-smooth border border-border"
+              className={`flex items-start gap-4 p-5 bg-card rounded-xl border border-border shadow-sm hover:shadow-md ${item.hoverColor} transition-all duration-300`}
             >
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 ${it.color} group-hover:scale-110 transition-smooth`}
-              >
-                <it.icon className="w-7 h-7" />
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary mt-0.5">
+                <item.icon className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">
-                {it.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">{it.desc}</p>
+              <div>
+                <p className="text-base sm:text-lg leading-relaxed">
+                  <span className="font-bold text-foreground text-lg sm:text-xl">
+                    {item.highlight}
+                  </span>
+                  <span className="text-muted-foreground font-medium ml-1">
+                    {item.text}
+                  </span>
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Source & crédibilité (répond à la remarque du mentor) */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-8 text-center text-xs text-muted-foreground/70"
+        >
+          Source : Données contextuelles MIABE Hackathon 2026 • Enquête terrain
+          IT Burkina (2023)
+        </motion.p>
       </div>
     </section>
   );
@@ -346,24 +375,24 @@ const ProblemSection = () => {
 
 const StatsSection = () => {
   const stats = [
-    {
-      value: 85,
-      suffix: "%",
+    /* {
+      value: +150000,
+      suffix: "",
       label: "des jeunes sont autodidactes",
       color: "text-primary",
       icon: GraduationCap,
-    },
+    }, */
     {
-      value: 75,
+      value: 5,
       suffix: "%",
-      label: "n'ont jamais été certifiés",
+      label: "obtiennent des certifications officielles",
       color: "text-accent",
       icon: Lock,
     },
     {
-      value: 57,
+      value: 70,
       suffix: "%",
-      label: "refusés faute de certification",
+      label: "Employeurs peinent à évaluer les candidats",
       color: "text-danger",
       icon: Briefcase,
     },
@@ -386,7 +415,7 @@ const StatsSection = () => {
           className="text-center max-w-2xl mx-auto mb-14"
         >
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-            Un besoin massif confirmé par le terrain
+            Le défi de la validation des talents locaux
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
             Données recueillies auprès des jeunes apprenants et recruteurs au
@@ -400,6 +429,21 @@ const StatsSection = () => {
           variants={stagger}
           className="grid grid-cols-2 lg:grid-cols-4 gap-6"
         >
+          <motion.div
+            variants={fadeUp}
+            className="text-center p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-smooth"
+          >
+            <GraduationCap className={`w-8 h-8 mx-auto mb-4 text-primary`} />
+            <div
+              className={`text-5xl sm:text-6xl font-extrabold tracking-tight text-primary`}
+            >
+              <CountUp suffix="+" end={15000} />
+            </div>
+            <p className="mt-3 text-sm sm:text-base text-muted-foreground font-medium">
+              jeunes sont autodidactes
+            </p>
+          </motion.div>
+
           {stats.map((s) => (
             <motion.div
               key={s.label}
@@ -424,41 +468,46 @@ const StatsSection = () => {
 };
 
 const SolutionSection = () => {
-  const features = [
+  const steps = [
     {
-      icon: Shield,
-      title: "Infalsifiable",
-      desc: "Enregistré sur blockchain NFT, impossible à contrefaire ou modifier.",
-      color: "bg-primary/10 text-primary",
+      num: "1",
+      title: "Le formateur émet un badge",
+      desc: "Un centre de formation habilité crée un badge de compétence et l'attribue à un apprenant ayant satisfait aux critères d'évaluation définis.",
+      footer: "Cercle Numérique · Laafi Tech · Yida Digital · Bootcamps · ONG",
+      tags: null,
+      highlight: false,
+      verified: false,
     },
     {
-      icon: Zap,
-      title: "Instantané",
-      desc: "Vérification en moins d'une seconde par les recruteurs.",
-      color: "bg-accent/10 text-accent",
+      num: "2",
+      title: "L'apprenant collecte ses badges",
+      desc: "Chaque badge rejoint automatiquement le portfolio blockchain de l'apprenant — public, partageable, accessible depuis son téléphone.",
+      footer: null,
+      tags: ["Expert", "Avancé", "Intermédiaire", "Débutant"],
+      highlight: true,
+      verified: false,
     },
     {
-      icon: Globe,
-      title: "Décentralisé",
-      desc: "Aucune autorité centrale, accessible partout dans le monde.",
-      color: "bg-success/10 text-success",
-    },
-    {
-      icon: Users,
-      title: "Inclusif",
-      desc: "Accessible à tous les apprenants, quel que soit leur parcours.",
-      color: "bg-primary/10 text-primary",
+      num: "3",
+      title: "Le recruteur vérifie en secondes",
+      desc: "En saisissant l'adresse wallet du candidat, le recruteur voit instantanément tous ses badges certifiés, leurs émetteurs et leur validité.",
+      footer: null,
+      tags: null,
+      highlight: false,
+      verified: true,
     },
   ];
+
   return (
     <section id="solution" className="py-20 bg-gradient-blue-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* En-tête unifié */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
           variants={fadeUp}
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
             Notre solution
@@ -472,29 +521,76 @@ const SolutionSection = () => {
           </p>
         </motion.div>
 
+        {/* Les 3 étapes */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           variants={stagger}
-          className="grid sm:grid-cols-2 gap-6"
+          className="grid md:grid-cols-3 gap-6"
         >
-          {features.map((f) => (
+          {steps.map((step) => (
             <motion.div
-              key={f.title}
+              key={step.num}
               variants={fadeUp}
-              whileHover={{ y: -6 }}
-              className="bg-card rounded-2xl p-8 shadow-soft hover:shadow-elegant transition-smooth border border-border"
+              className={`relative rounded-2xl p-8 transition-smooth ${
+                step.highlight
+                  ? "bg-card border-2 border-primary shadow-elegant"
+                  : "bg-card border border-border shadow-soft"
+              }`}
             >
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 ${f.color}`}
-              >
-                <f.icon className="w-7 h-7" />
+              {/* Numéro circulaire */}
+              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-extrabold text-lg flex items-center justify-center mb-6 shadow-lg">
+                {step.num}
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">
-                {f.title}
+
+              {/* Titre */}
+              <h3 className="text-xl font-bold text-foreground mb-3">
+                {step.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">{f.desc}</p>
+
+              {/* Description */}
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                {step.desc}
+              </p>
+
+              {/* Tags pour l'étape 2 */}
+              {step.tags && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {step.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        tag === "Expert"
+                          ? "bg-purple-100 text-purple-700"
+                          : tag === "Avancé"
+                            ? "bg-orange-100 text-orange-700"
+                            : tag === "Intermédiaire"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-green-100 text-green-700"
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Badge de vérification pour l'étape 3 */}
+              {step.verified && (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-4">
+                  <p className="text-sm font-semibold text-green-700">
+                    Vérification en 0,3 seconde · 100% fiable
+                  </p>
+                </div>
+              )}
+
+              {/* Footer pour l'étape 1 */}
+              {step.footer && (
+                <div className="pt-4 border-t border-border">
+                  <p className="text-xs text-muted-foreground">{step.footer}</p>
+                </div>
+              )}
             </motion.div>
           ))}
         </motion.div>
@@ -503,32 +599,44 @@ const SolutionSection = () => {
   );
 };
 
-const HowItWorks = () => {
-  const steps = [
+const ImpactSection = () => {
+  const cols = [
     {
-      icon: CheckCircle2,
-      num: "01",
-      title: "Validation",
-      desc: "Un formateur valide la compétence de l'apprenant selon le référentiel SkillBadge.",
-      color: "bg-primary text-primary-foreground",
+      icon: GraduationCap,
+      color: "bg-primary/10 text-primary",
+      title: "Pour les Apprenants",
+      points: [
+        "Portfolio vérifiable et crédible",
+        "Propriété personnelle des badges",
+        "Partage facile avec recruteurs",
+        "Progression claire et motivante",
+      ],
     },
     {
-      icon: BadgeIcon,
-      num: "02",
-      title: "Mint NFT",
-      desc: "Le badge est créé sur la blockchain (NFT ERC-1155) avec métadonnées sur IPFS.",
-      color: "bg-accent text-accent-foreground",
+      icon: Briefcase,
+      color: "bg-accent/10 text-accent",
+      title: "Pour les Recruteurs",
+      points: [
+        "Vérification instantanée (<1s)",
+        "Confiance totale dans les compétences",
+        "Gain de temps massif",
+        "Accès à plus de talents",
+      ],
     },
     {
-      icon: SearchCheck,
-      num: "03",
-      title: "Vérification",
-      desc: "Le recruteur vérifie instantanément l'authenticité du badge via la blockchain.",
-      color: "bg-success text-success-foreground",
+      icon: Award,
+      color: "bg-success/10 text-success",
+      title: "Pour les Formateurs",
+      points: [
+        "Émission sécurisée et signée",
+        "Traçabilité complète",
+        "Crédibilité renforcée",
+        "Zéro risque de contrefaçon",
+      ],
     },
   ];
   return (
-    <section className="py-20 bg-background" id="how-it-work">
+    <section id="impact" className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial="hidden"
@@ -537,43 +645,46 @@ const HowItWorks = () => {
           variants={fadeUp}
           className="text-center max-w-2xl mx-auto mb-14"
         >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-            Comment ça marche ?
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground">
+            Une valeur ajoutée pour chaque utilisateur
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg">
-            3 étapes simples, de l'évaluation à la vérification.
-          </p>
         </motion.div>
 
-        <div className="relative">
-          {/* connecting line */}
-          <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-primary via-accent to-success" />
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="grid md:grid-cols-3 gap-10 relative"
-          >
-            {steps.map((s) => (
-              <motion.div key={s.num} variants={fadeUp} className="text-center">
-                <div
-                  className={`relative w-24 h-24 rounded-full ${s.color} flex items-center justify-center mx-auto mb-6 shadow-elegant`}
-                >
-                  <s.icon className="w-10 h-10" />
-                  <span className="absolute -top-2 -right-2 w-9 h-9 rounded-full bg-card border-2 border-border text-foreground font-extrabold text-sm flex items-center justify-center shadow-soft">
-                    {s.num}
-                  </span>
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">
-                  {s.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">
-                  {s.desc}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {cols.map((c, i) => (
+            <motion.div
+              key={c.title}
+              initial={{
+                opacity: 0,
+                x: i === 0 ? -40 : i === 2 ? 40 : 0,
+                y: i === 1 ? 40 : 0,
+              }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
+              className="bg-card rounded-2xl p-8 shadow-soft border border-border hover:shadow-elegant transition-smooth"
+            >
+              <div
+                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 ${c.color}`}
+              >
+                <c.icon className="w-7 h-7" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                {c.title}
+              </h3>
+              <ul className="space-y-3">
+                {c.points.map((p) => (
+                  <li
+                    key={p}
+                    className="flex items-start gap-3 text-muted-foreground"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -622,31 +733,82 @@ const BlockchainSection = () => (
           compétence certifiée, émetteur, date, et hash cryptographique.
         </motion.p>
 
-        <motion.ul variants={stagger} className="mt-8 space-y-3">
-          {[
-            { label: "Immuabilité", icon: Lock },
-            { label: "Transparence totale", icon: Globe },
-            { label: "Décentralisation", icon: Layers },
-            { label: "Sécurité cryptographique SHA-256", icon: Shield },
-          ].map((p) => (
-            <motion.li
-              key={p.label}
-              variants={fadeUp}
-              className="flex items-center gap-3 text-white/90"
-            >
-              <span className="w-9 h-9 rounded-lg bg-primary/20 flex items-center justify-center text-primary-glow">
-                <p.icon className="w-5 h-5" />
-              </span>
-              {p.label}
-            </motion.li>
-          ))}
-        </motion.ul>
+        {/* Avantages améliorés - Présentation en cartes */}
+        <motion.div variants={stagger} className="mt-8 space-y-4">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-smooth"
+          >
+            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <Lock className="w-5 h-5 text-primary-glow" />
+            </div>
+            <div>
+              <h3 className="font-bold text-white mb-1">Infalsifiable</h3>
+              <p className="text-sm text-white/70">
+                Enregistré sur blockchain NFT, impossible à contrefaire ou
+                modifier.
+              </p>
+            </div>
+          </motion.div>
 
+          <motion.div
+            variants={fadeUp}
+            className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-smooth"
+          >
+            <div className="w-10 h-10 rounded-lg bg-success/20 flex items-center justify-center flex-shrink-0">
+              <Zap className="w-5 h-5 text-success" />
+            </div>
+            <div>
+              <h3 className="font-bold text-white mb-1">
+                Vérification instantanée
+              </h3>
+              <p className="text-sm text-white/70">
+                Vérification en 0,3 seconde par n'importe quel recruteur.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-smooth"
+          >
+            <div className="w-10 h-10 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+              <Globe className="w-5 h-5 text-accent" />
+            </div>
+            <div>
+              <h3 className="font-bold text-white mb-1">
+                Décentralisé & Transparent
+              </h3>
+              <p className="text-sm text-white/70">
+                Aucune autorité centrale. Toutes les données sont publiques et
+                traçables.
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            className="flex items-start gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-smooth"
+          >
+            <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+              <Shield className="w-5 h-5 text-primary-glow" />
+            </div>
+            <div>
+              <h3 className="font-bold text-white mb-1">
+                Sécurité cryptographique SHA-256
+              </h3>
+              <p className="text-sm text-white/70">
+                Hash cryptographique unique garantissant l'intégrité totale du
+                badge.
+              </p>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Bouton existant conservé */}
         <motion.div variants={fadeUp} className="mt-8">
           <Button variant="hero" size="lg" asChild>
-            <a href="#architecture">
-              En savoir plus sur la technologie
-            </a>
+            <a href="#architecture">En savoir plus sur la technologie</a>
           </Button>
         </motion.div>
       </motion.div>
@@ -659,19 +821,12 @@ const BlockchainSection = () => (
         className="relative"
       >
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 shadow-glow animate-glow">
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-xs font-mono text-primary-glow">
-              NFT • ERC-1155
-            </span>
-            <span className="text-xs px-2 py-1 rounded-full bg-success/20 text-success font-semibold">
-              ON-CHAIN
-            </span>
-          </div>
-
           <div className="bg-gradient-hero rounded-2xl p-8 flex flex-col items-center text-center mb-6">
             <Award className="w-20 h-20 text-white mb-3" strokeWidth={1.5} />
-            <h3 className="font-extrabold text-white text-lg">Cybersécurité</h3>
-            <p className="text-white/80 text-sm">Niveau Intermédiaire</p>
+            <h3 className="font-extrabold text-white text-lg">
+              Développement Web
+            </h3>
+            <p className="text-white/80 text-sm">Niveau Avancé</p>
           </div>
 
           <div className="space-y-3 text-sm font-mono">
@@ -681,7 +836,7 @@ const BlockchainSection = () => (
             </div>
             <div className="flex justify-between items-center pb-3 border-b border-white/10">
               <span className="text-white/50">Émetteur</span>
-              <span className="text-white">CyberAcademy BF</span>
+              <span className="text-white">Centre Numérique BF</span>
             </div>
             <div className="flex justify-between items-center pb-3 border-b border-white/10">
               <span className="text-white/50">Date</span>
@@ -796,126 +951,34 @@ const BadgesPreview = () => {
   );
 };
 
-const ImpactSection = () => {
-  const cols = [
-    {
-      icon: GraduationCap,
-      color: "bg-primary/10 text-primary",
-      title: "Pour les Apprenants",
-      points: [
-        "Portfolio vérifiable et crédible",
-        "Propriété personnelle des badges",
-        "Partage facile avec recruteurs",
-        "Progression claire et motivante",
-      ],
-    },
-    {
-      icon: Briefcase,
-      color: "bg-accent/10 text-accent",
-      title: "Pour les Recruteurs",
-      points: [
-        "Vérification instantanée (<1s)",
-        "Confiance totale dans les compétences",
-        "Gain de temps massif",
-        "Accès à plus de talents",
-      ],
-    },
-    {
-      icon: Award,
-      color: "bg-success/10 text-success",
-      title: "Pour les Formateurs",
-      points: [
-        "Émission sécurisée et signée",
-        "Traçabilité complète",
-        "Crédibilité renforcée",
-        "Zéro risque de contrefaçon",
-      ],
-    },
-  ];
-  return (
-    <section id="impact" className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          className="text-center max-w-2xl mx-auto mb-14"
-        >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-            Impact sur l'employabilité
-          </h2>
-          <p className="mt-4 text-muted-foreground text-lg">
-            Une valeur ajoutée concrète pour tous les acteurs de l'écosystème
-            numérique.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {cols.map((c, i) => (
-            <motion.div
-              key={c.title}
-              initial={{
-                opacity: 0,
-                x: i === 0 ? -40 : i === 2 ? 40 : 0,
-                y: i === 1 ? 40 : 0,
-              }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: i * 0.1 }}
-              className="bg-card rounded-2xl p-8 shadow-soft border border-border hover:shadow-elegant transition-smooth"
-            >
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 ${c.color}`}
-              >
-                <c.icon className="w-7 h-7" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-4">
-                {c.title}
-              </h3>
-              <ul className="space-y-3">
-                {c.points.map((p) => (
-                  <li
-                    key={p}
-                    className="flex items-start gap-3 text-muted-foreground"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const TeamSection = () => {
   const members = [
     {
       name: "Seydou Bagaya",
       role: "Product Lead",
+      photo: "/images/team/BAGAYA Seydou.jpeg",
       initials: "SB",
       grad: "from-primary to-primary-glow",
     },
     {
-      name: "Neimata Ouedraogo",
+      name: "Neimata Oudraogo",
       role: "UI/UX Designer",
+      photo: "/images/team/OUEDRAOGO Nemata.jpeg",
       initials: "NO",
       grad: "from-accent to-accent/60",
     },
     {
       name: "Dan Kafando",
-      role: "Blockchain Dev",
+      role: "Blockcain Dev",
+      photo: "/images/team/KAFANDO Dan.jpeg",
       initials: "DK",
       grad: "from-success to-success/60",
     },
     {
       name: "Firmin Yameogo",
       role: "Frontend Dev",
-      initials: "BT",
+      photo: "/images/team/YAMEOGO Firmin.jpeg",
+      initials: "FY",
       grad: "from-primary to-accent",
     },
   ];
@@ -930,20 +993,19 @@ const TeamSection = () => {
           className="text-center max-w-2xl mx-auto mb-14"
         >
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-            Notre équipe
+            Notre Equipe
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
             Une équipe pluridisciplinaire passionnée par l'impact numérique en
             Afrique.
           </p>
         </motion.div>
-
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           variants={stagger}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {members.map((m) => (
             <motion.div
@@ -952,13 +1014,23 @@ const TeamSection = () => {
               whileHover={{ y: -4 }}
               className="group bg-card rounded-2xl p-6 text-center border border-border shadow-soft hover:shadow-elegant transition-smooth"
             >
-              <div
-                className={`w-24 h-24 rounded-full bg-gradient-to-br ${m.grad} flex items-center justify-center mx-auto mb-4 text-white font-extrabold text-2xl shadow-elegant`}
-              >
-                {m.initials}
+              <div className="relative w-24 h-24 mx-auto mb-4">
+                <div
+                  className={` absolute inset-0 /* w-full h-full */ rounded-full bg-gradient-to-br ${m.grad} flex items-center justify-center text-white font-extrabold text-2xl shadow-elegant absolute top-0 left-0`}
+                >
+                  {m.initials}
+                </div>
+                <img
+                  src={m.photo}
+                  alt={m.name}
+                  className=" relative w-full h-full rounded-full object-cover shadow-elegant z-10 transition-opacity duration-300"
+                  onError={(e) => {
+                    e.currentTarget.style.opacity = "0";
+                  }}
+                />
               </div>
               <h3 className="font-bold text-foreground">{m.name}</h3>
-              <p className="text-sm text-muted-foreground">{m.role}</p>
+              <p className="text-sm text-muted-foreground mt-1">{m.role}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -1171,12 +1243,12 @@ const Index = () => {
       <Navbar />
       <Hero />
       <ProblemSection />
-      <StatsSection />
+      {/* <StatsSection /> */}
       <SolutionSection />
-      <HowItWorks />
+      <ImpactSection />
+      {/* <HowItWorks /> */}
       <BlockchainSection />
       <BadgesPreview />
-      <ImpactSection />
       <TeamSection />
       <ArchitectureSection />
       <CtaSection />
