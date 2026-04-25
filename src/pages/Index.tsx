@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { ZoomIn } from "lucide-react";
 import {
   Award,
   Badge as BadgeIcon,
@@ -32,6 +34,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CountUp } from "@/components/CountUp";
 import type { Variants } from "framer-motion";
+import { Code, TrendingUp } from "lucide-react";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -71,9 +74,9 @@ const Navbar = () => {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-gradient-hero flex items-center justify-center shadow-elegant group-hover:scale-110 transition-smooth">
+          {/* <div className="w-9 h-9 rounded-lg bg-gradient-hero flex items-center justify-center shadow-elegant group-hover:scale-110 transition-smooth">
             <ShieldCheck className="w-5 h-5 text-primary-foreground" />
-          </div>
+          </div> */}
           <span className="font-extrabold text-lg tracking-tight text-foreground">
             Skill<span className="text-primary">Badge</span>
           </span>
@@ -273,195 +276,127 @@ const Hero = () => (
     </div>
   </section>
 );
+
+// Assure-toi que fadeUp et stagger sont bien définis en haut de ton fichier
 const ProblemSection = () => {
-  const dataPoints = [
+  const mainCards = [
     {
-      icon: Users,
-      highlight: "15 000+",
-      text: "Jeunes Burkinabè se forment au numérique chaque année via des canaux informels.",
-      hoverColor: "hover:border-red-300",
+      icon: Layers,
+      title: "Compétences sans preuve",
+      text: "Plus de 15 000 jeunes se forment au numérique chaque année via des canaux informels, sans aucun document officiel à présenter.",
+      iconBg: "bg-blue-50 text-blue-600",
     },
     {
       icon: Lock,
-      highlight: "< 5%",
-      text: "Obtiennent des certifications reconnues par les employeurs du secteur.",
-      hoverColor: "hover:border-red-300",
+      title: "Certifications quasi inexistantes",
+      text: "Moins de 5 % de ces jeunes obtiennent une certification reconnue par les employeurs du secteur IT.",
+      iconBg: "bg-amber-50 text-amber-600",
     },
     {
-      icon: Briefcase,
-      highlight: "70%",
-      text: "Des employeurs IT burkinabè peinent à évaluer les candidats autodidactes (enquête 2023).",
-      hoverColor: "hover:border-red-300",
+      icon: Users,
+      title: "Recruteurs dans le flou",
+      text: "70 % des employeurs IT burkinabè déclarent avoir du mal à évaluer objectivement les candidats autodidactes lors du recrutement.",
+      iconBg: "bg-rose-50 text-rose-600",
+    },
+  ];
+
+  const secondaryStats = [
+    {
+      icon: Code,
+      value: "8 000+",
+      label: "Développeurs formés sans certification standardisée (2020-2023)",
     },
     {
-      icon: GraduationCap,
-      highlight: "8 000",
-      text: "Développeurs formés à Ouagadougou (2020–2023) sans certification standardisée.",
-      hoverColor: "hover:border-red-300",
-    },
-    {
-      icon: Globe,
-      highlight: "+40%",
-      text: "D'employabilité augmentée grâce à la blockchain en Afrique de l'Est.",
-      hoverColor: "hover:border-green-300",
+      icon: TrendingUp,
+      value: "+40%",
+      label: "D'employabilité accrue grâce à la blockchain en Afrique de l'Est",
     },
   ];
 
   return (
     <section id="probleme" className="py-20 bg-surface-soft">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* En-tête */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeUp}
-          className="text-center mb-12"
+          className="text-center max-w-3xl mx-auto mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
             Le défi de l'emploi numérique au Burkina Faso
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            Des milliers de talents invisibles. Un écart majeur entre
-            compétences réelles et reconnaissance formelle.
-          </p>
-        </motion.div>
-
-        {/* Liste minimaliste */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={stagger}
-          className="space-y-3"
-        >
-          {dataPoints.map((item, idx) => (
-            <motion.div
-              key={idx}
-              variants={fadeUp}
-              className={`flex items-start gap-4 p-5 bg-card rounded-xl border border-border shadow-sm hover:shadow-md ${item.hoverColor} transition-all duration-300`}
-            >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary mt-0.5">
-                <item.icon className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="text-base sm:text-lg leading-relaxed">
-                  <span className="font-bold text-foreground text-lg sm:text-xl">
-                    {item.highlight}
-                  </span>
-                  <span className="text-muted-foreground font-medium ml-1">
-                    {item.text}
-                  </span>
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Source & crédibilité (répond à la remarque du mentor) */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-8 text-center text-xs text-muted-foreground/70"
-        >
-          Source : Données contextuelles MIABE Hackathon 2026 • Enquête terrain
-          IT Burkina (2023)
-        </motion.p>
-      </div>
-    </section>
-  );
-};
-
-const StatsSection = () => {
-  const stats = [
-    /* {
-      value: +150000,
-      suffix: "",
-      label: "des jeunes sont autodidactes",
-      color: "text-primary",
-      icon: GraduationCap,
-    }, */
-    {
-      value: 5,
-      suffix: "%",
-      label: "obtiennent des certifications officielles",
-      color: "text-accent",
-      icon: Lock,
-    },
-    {
-      value: 70,
-      suffix: "%",
-      label: "Employeurs peinent à évaluer les candidats",
-      color: "text-danger",
-      icon: Briefcase,
-    },
-    {
-      value: 90,
-      suffix: "%",
-      label: "prêts à utiliser SkillBadge",
-      color: "text-success",
-      icon: CheckCircle2,
-    },
-  ];
-  return (
-    <section className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          className="text-center max-w-2xl mx-auto mb-14"
-        >
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-            Le défi de la validation des talents locaux
-          </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Données recueillies auprès des jeunes apprenants et recruteurs au
-            Burkina Faso.
+            Un écart majeur entre compétences réelles et reconnaissance
+            officielle.
           </p>
         </motion.div>
+
+        {/* 3 Cartes principales (style image) */}
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           variants={stagger}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid md:grid-cols-3 gap-8 mb-12"
         >
-          <motion.div
-            variants={fadeUp}
-            className="text-center p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-smooth"
-          >
-            <GraduationCap className={`w-8 h-8 mx-auto mb-4 text-primary`} />
-            <div
-              className={`text-5xl sm:text-6xl font-extrabold tracking-tight text-primary`}
-            >
-              <CountUp suffix="+" end={15000} />
-            </div>
-            <p className="mt-3 text-sm sm:text-base text-muted-foreground font-medium">
-              jeunes sont autodidactes
-            </p>
-          </motion.div>
-
-          {stats.map((s) => (
+          {mainCards.map((card, i) => (
             <motion.div
-              key={s.label}
+              key={card.title}
               variants={fadeUp}
-              className="text-center p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-smooth"
+              className="bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              <s.icon className={`w-8 h-8 mx-auto mb-4 ${s.color}`} />
               <div
-                className={`text-5xl sm:text-6xl font-extrabold tracking-tight ${s.color}`}
+                className={`w-16 h-16 mx-auto rounded-2xl ${card.iconBg} flex items-center justify-center mb-6`}
               >
-                <CountUp end={s.value} suffix={s.suffix} />
+                <card.icon className="w-8 h-8" />
               </div>
-              <p className="mt-3 text-sm sm:text-base text-muted-foreground font-medium">
-                {s.label}
+              <h3 className="text-xl font-bold text-foreground mb-3">
+                {card.title}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed text-sm">
+                {card.text}
               </p>
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Bandeau secondaire (évite l'effet "trop de cartes") */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="bg-white/80 backdrop-blur rounded-2xl border border-border p-6 grid sm:grid-cols-2 gap-8 shadow-sm"
+        >
+          {secondaryStats.map((stat, i) => (
+            <div key={i} className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <stat.icon className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-2xl font-extrabold text-foreground">
+                  {stat.value}
+                </span>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {stat.label}
+                </p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Source (répond à la remarque du mentor) */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-8 text-center text-xs text-muted-foreground/70 italic"
+        >
+          Source : Données contextuelles MIABE Hackathon 2026 & Enquête terrain
+          IT Burkina (2023)
+        </motion.p>
       </div>
     </section>
   );
@@ -729,7 +664,8 @@ const BlockchainSection = () => (
           variants={fadeUp}
           className="mt-5 text-lg text-white/70 leading-relaxed"
         >
-          Chaque badge est un NFT unique contenant : identité de l'apprenant,
+          Contrairement à un certificat PDF ou une attestation papier, chaque
+          badge est un NFT unique contenant : identité de l'apprenant,
           compétence certifiée, émetteur, date, et hash cryptographique.
         </motion.p>
 
@@ -763,7 +699,8 @@ const BlockchainSection = () => (
                 Vérification instantanée
               </h3>
               <p className="text-sm text-white/70">
-                Vérification en 0,3 seconde par n'importe quel recruteur.
+                Vérification en moins d'une seconde par n'importe quel
+                recruteur.
               </p>
             </div>
           </motion.div>
@@ -854,6 +791,13 @@ const BlockchainSection = () => (
 );
 
 const BadgesPreview = () => {
+  const [selectedBadge, setSelectedBadge] = useState<{
+    image: string;
+    title: string;
+    level: string;
+    domain: string;
+  } | null>(null);
+
   const domains = [
     {
       emoji: "💻",
@@ -861,6 +805,15 @@ const BadgesPreview = () => {
       title: "Développement Web",
       skills: "HTML, CSS, JS, React, Node.js",
       grad: "from-primary/20 to-primary/5",
+      badges: [
+        { level: "Débutant", image: "/images/badges/web-debutant.png" },
+        {
+          level: "Intermédiaire",
+          image: "/images/badges/web-intermediaire.png",
+        },
+        { level: "Avancé", image: "/images/badges/web-avance.png" },
+        { level: "Expert", image: "/images/badges/web-expert.png" },
+      ],
     },
     {
       emoji: "📱",
@@ -868,6 +821,15 @@ const BadgesPreview = () => {
       title: "Développement Mobile",
       skills: "Flutter, React Native, Kotlin",
       grad: "from-accent/20 to-accent/5",
+      badges: [
+        { level: "Débutant", image: "/images/badges/mobile-debutant.png" },
+        {
+          level: "Intermédiaire",
+          image: "/images/badges/mobile-intermediaire.png",
+        },
+        { level: "Avancé", image: "/images/badges/mobile-avance.png" },
+        { level: "Expert", image: "/images/badges/mobile-expert.png" },
+      ],
     },
     {
       emoji: "📊",
@@ -875,6 +837,15 @@ const BadgesPreview = () => {
       title: "Data & IA",
       skills: "Python, Machine Learning, SQL",
       grad: "from-success/20 to-success/5",
+      badges: [
+        { level: "Débutant", image: "/images/badges/data-debutant.png" },
+        {
+          level: "Intermédiaire",
+          image: "/images/badges/data-intermediaire.png",
+        },
+        { level: "Avancé", image: "/images/badges/data-avance.png" },
+        { level: "Expert", image: "/images/badges/data-expert.png" },
+      ],
     },
     {
       emoji: "🔐",
@@ -882,6 +853,15 @@ const BadgesPreview = () => {
       title: "Cybersécurité",
       skills: "Pentesting, Sécurité réseaux",
       grad: "from-danger/20 to-danger/5",
+      badges: [
+        { level: "Débutant", image: "/images/badges/cyber-debutant.png" },
+        {
+          level: "Intermédiaire",
+          image: "/images/badges/cyber-intermediaire.png",
+        },
+        { level: "Avancé", image: "/images/badges/cyber-avance.png" },
+        { level: "Expert", image: "/images/badges/cyber-expert.png" },
+      ],
     },
     {
       emoji: "🎨",
@@ -889,6 +869,15 @@ const BadgesPreview = () => {
       title: "UI/UX Design",
       skills: "Figma, Prototypage, Design System",
       grad: "from-primary/20 to-accent/10",
+      badges: [
+        { level: "Débutant", image: "/images/badges/design-debutant.png" },
+        {
+          level: "Intermédiaire",
+          image: "/images/badges/design-intermediaire.png",
+        },
+        { level: "Avancé", image: "/images/badges/design-avance.png" },
+        { level: "Expert", image: "/images/badges/design-expert.png" },
+      ],
     },
     {
       emoji: "⚙️",
@@ -896,8 +885,18 @@ const BadgesPreview = () => {
       title: "DevOps",
       skills: "Git, CI/CD, Docker, Agile",
       grad: "from-success/20 to-primary/10",
+      badges: [
+        { level: "Débutant", image: "/images/badges/devops-debutant.png" },
+        {
+          level: "Intermédiaire",
+          image: "/images/badges/devops-intermediaire.png",
+        },
+        { level: "Avancé", image: "/images/badges/devops-avance.png" },
+        { level: "Expert", image: "/images/badges/devops-expert.png" },
+      ],
     },
   ];
+
   return (
     <section id="badges" className="py-20 bg-surface-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -912,8 +911,9 @@ const BadgesPreview = () => {
             6 domaines de certification
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Couvrez l'essentiel des métiers du numérique avec 3 niveaux par
+            Couvrez l'essentiel des métiers du numérique avec 4 niveaux par
             badge.
+            
           </p>
         </motion.div>
 
@@ -922,31 +922,151 @@ const BadgesPreview = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
           variants={stagger}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {domains.map((d) => (
             <motion.div
               key={d.title}
               variants={fadeUp}
-              whileHover={{ y: -6, scale: 1.02 }}
               className={`group rounded-2xl p-6 bg-gradient-to-br ${d.grad} border border-border bg-card hover:shadow-elegant transition-smooth`}
             >
+              {/* Header: Emoji + Badge "4 niveaux" */}
               <div className="flex items-start justify-between mb-4">
                 <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center text-2xl shadow-soft">
                   {d.emoji}
                 </div>
                 <span className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary font-semibold">
-                  3 niveaux
+                  4 niveaux
                 </span>
               </div>
+
+              {/* Titre et compétences */}
               <h3 className="text-lg font-bold text-foreground mb-1">
                 {d.title}
               </h3>
-              <p className="text-sm text-muted-foreground">{d.skills}</p>
+              <p className="text-sm text-muted-foreground mb-6">{d.skills}</p>
+
+              {/* Les 4 badges cliquables */}
+              <div className="grid grid-cols-2 gap-3">
+                {d.badges.map((badge, index) => (
+                  <motion.button
+                    key={badge.level}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() =>
+                      setSelectedBadge({
+                        image: badge.image,
+                        title: d.title,
+                        level: badge.level,
+                        domain: d.title,
+                      })
+                    }
+                    className="relative group/badge cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
+                    aria-label={`Voir le badge ${badge.level} de ${d.title}`}
+                  >
+                    {/* Image du badge */}
+                    <div className="relative aspect-square rounded-xl overflow-hidden bg-white/50 border border-border shadow-sm hover:shadow-md hover:border-primary/40 transition-all">
+                      <img
+                        src={badge.image}
+                        alt={`Badge ${badge.level} - ${d.title}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+
+                      {/* Overlay avec icône zoom au hover */}
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/badge:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+                        <ZoomIn className="w-6 h-6 text-white" />
+                        <span className="text-white text-xs font-bold">
+                          {badge.level}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+
+              {/* Légende des niveaux */}
+              <div className="mt-4 pt-4 border-t border-border">
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>Débutant</span>
+                  <span>Intermédiaire</span>
+                  <span>Avancé</span>
+                  <span>Expert</span>
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* ===== MODAL / LIGHTBOX ===== */}
+      <AnimatePresence>
+        {selectedBadge && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setSelectedBadge(null)}
+          >
+            {/* Contenu de la modal */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-2xl w-full bg-card rounded-3xl p-8 shadow-2xl border border-border"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Bouton fermer */}
+              <button
+                onClick={() => setSelectedBadge(null)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-muted hover:bg-muted-foreground/20 flex items-center justify-center transition-colors z-10"
+                aria-label="Fermer"
+              >
+                <X className="w-5 h-5 text-foreground" />
+              </button>
+
+              {/* En-tête de la modal */}
+              <div className="text-center mb-6">
+                <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3">
+                  {selectedBadge.domain}
+                </span>
+                <h3 className="text-2xl font-bold text-foreground mb-1">
+                  {selectedBadge.title}
+                </h3>
+                <p className="text-lg text-primary font-semibold">
+                  Niveau : {selectedBadge.level}
+                </p>
+              </div>
+
+              {/* Image du badge en grand */}
+              <div className="relative rounded-2xl overflow-hidden bg-white/5 border border-border shadow-inner mb-6">
+                <img
+                  src={selectedBadge.image}
+                  alt={`Badge ${selectedBadge.level} - ${selectedBadge.domain}`}
+                  className="w-full h-auto object-contain max-h-[400px] mx-auto"
+                />
+              </div>
+
+              {/* Footer avec info blockchain */}
+              <div className="bg-muted/50 rounded-xl p-4 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Ce badge est un NFT vérifiable sur la blockchain •
+                  <span className="text-primary font-medium">
+                    {" "}
+                    Infalsifiable & Traçable
+                  </span>
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
@@ -1095,18 +1215,15 @@ const CtaSection = () => (
             Prêt à transformer l'emploi numérique au Burkina Faso ?
           </h2>
           <p className="mt-5 text-lg text-white/90 max-w-2xl mx-auto">
-            Rejoignez SkillBadge et commencez à certifier vos compétences dès
-            aujourd'hui.
+            Vous êtes Apprenant, Formateur ou Recruteur? Rejoignez-nous pour
+            construire ensemble un écosystème de compétences plus juste et
+            transparent.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="ctaWhite" size="xl" className="animate-pulse-slow">
-              <a
-                href="https://tally.so/r/Y5zJN5"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link to="/commencer" target="_blank" rel="noopener noreferrer">
                 Commencer maintenant
-              </a>
+              </Link>
             </Button>
             <Button variant="ctaOutline" size="xl">
               <a href="mailto:seydoubagaya2002@gmail.com">Contactez-nous</a>
@@ -1125,9 +1242,9 @@ const Footer = () => (
         {/* Colonne 1 : Logo + Description */}
         <div>
           <a href="#" className="flex items-center gap-2 mb-4">
-            <div className="w-9 h-9 rounded-lg bg-gradient-hero flex items-center justify-center">
+            {/* <div className="w-9 h-9 rounded-lg bg-gradient-hero flex items-center justify-center">
               <ShieldCheck className="w-5 h-5 text-white" />
-            </div>
+            </div> */}
             <span className="font-extrabold text-lg text-white">
               Skill<span className="text-primary-glow">Badge</span>
             </span>
@@ -1243,7 +1360,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <ProblemSection />
-      {/* <StatsSection /> */}
+      {/*<StatsSection /> */}
       <SolutionSection />
       <ImpactSection />
       {/* <HowItWorks /> */}
