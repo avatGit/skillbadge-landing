@@ -97,7 +97,13 @@ const Navbar = () => {
 
         <div className="hidden md:block">
           <Button variant="hero" size="lg">
-            Voir la démo
+            <a
+              href="https://youtu.be/VHaPEB8YNnQ"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Voir la démo
+            </a>
           </Button>
         </div>
 
@@ -913,7 +919,6 @@ const BadgesPreview = () => {
           <p className="mt-4 text-muted-foreground text-lg">
             Couvrez l'essentiel des métiers du numérique avec 4 niveaux par
             badge.
-            
           </p>
         </motion.div>
 
