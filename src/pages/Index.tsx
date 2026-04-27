@@ -1311,7 +1311,7 @@ const Footer = () => (
           <div className="flex items-center gap-4">
             {/* GitHub → GitBranch */}
             <a
-              href="https://github.com/votre-repo"
+              href="https://github.com/avatGit/skillbadge-landing"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white hover:text-primary-glow transition-smooth"
